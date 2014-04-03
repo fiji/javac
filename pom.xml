@@ -32,6 +32,13 @@
 		</plugins>
 	</build>
 
+	<scm>
+		<connection>scm:git:git://github.com/fiji/javac</connection>
+		<developerConnection>scm:git:git@github.com:fiji/javac</developerConnection>
+		<tag>HEAD</tag>
+		<url>https://github.com/fiji/javac</url>
+	</scm>
+
 	<repositories>
 		<!-- NB: for project parent, in case of partial checkout -->
 		<repository>
