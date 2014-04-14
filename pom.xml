@@ -32,6 +32,11 @@
 		</plugins>
 	</build>
 
+	<ciManagement>
+		<system>Jenkins</system>
+		<url>http://jenkins.imagej.net/job/javac/</url>
+	</ciManagement>
+
 	<scm>
 		<connection>scm:git:git://github.com/fiji/javac</connection>
 		<developerConnection>scm:git:git@github.com:fiji/javac</developerConnection>
