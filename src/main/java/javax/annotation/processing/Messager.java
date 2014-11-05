@@ -25,9 +25,10 @@
 
 package javax.annotation.processing;
 
-import javax.annotation.*;
+import javax.lang.model.element.AnnotationMirror;
+import javax.lang.model.element.AnnotationValue;
+import javax.lang.model.element.Element;
 import javax.tools.Diagnostic;
-import javax.lang.model.element.*;
 
 /**
  * A {@code Messager} provides the way for an annotation processor to

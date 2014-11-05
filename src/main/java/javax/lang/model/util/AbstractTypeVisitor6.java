@@ -25,7 +25,9 @@
 
 package javax.lang.model.util;
 
-import javax.lang.model.type.*;
+import javax.lang.model.type.TypeMirror;
+import javax.lang.model.type.TypeVisitor;
+import javax.lang.model.type.UnknownTypeException;
 
 /**
  * A skeletal visitor of types with default behavior appropriate for

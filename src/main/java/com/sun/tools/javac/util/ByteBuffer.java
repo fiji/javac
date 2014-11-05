@@ -25,7 +25,9 @@
 
 package com.sun.tools.javac.util;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 
 /** A byte buffer is a flexible array which grows when elements are
  *  appended. There are also methods to append names to byte buffers

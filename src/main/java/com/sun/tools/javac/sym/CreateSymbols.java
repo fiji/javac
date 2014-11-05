@@ -25,12 +25,16 @@
 
 package com.sun.tools.javac.sym;
 
+import static javax.tools.JavaFileObject.Kind.CLASS;
+
 import com.sun.tools.javac.api.JavacTaskImpl;
+import com.sun.tools.javac.code.Attribute;
 import com.sun.tools.javac.code.Kinds;
 import com.sun.tools.javac.code.Scope;
-import com.sun.tools.javac.code.Symbol.*;
 import com.sun.tools.javac.code.Symbol;
-import com.sun.tools.javac.code.Attribute;
+import com.sun.tools.javac.code.Symbol.ClassSymbol;
+import com.sun.tools.javac.code.Symbol.PackageSymbol;
+import com.sun.tools.javac.code.Symbol.TypeSymbol;
 import com.sun.tools.javac.code.Symtab;
 import com.sun.tools.javac.code.Type;
 import com.sun.tools.javac.jvm.ClassReader;
@@ -39,7 +43,6 @@ import com.sun.tools.javac.jvm.Pool;
 import com.sun.tools.javac.processing.JavacProcessingEnvironment;
 import com.sun.tools.javac.util.List;
 import com.sun.tools.javac.util.Pair;
-import com.sun.tools.javac.util.Name;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,7 +50,6 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.Enumeration;
 import java.util.HashSet;
-import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Set;
 
@@ -62,7 +64,6 @@ import javax.tools.Diagnostic;
 import javax.tools.JavaCompiler;
 import javax.tools.JavaFileManager.Location;
 import javax.tools.JavaFileObject;
-import static javax.tools.JavaFileObject.Kind.CLASS;
 import javax.tools.StandardJavaFileManager;
 import javax.tools.StandardLocation;
 import javax.tools.ToolProvider;

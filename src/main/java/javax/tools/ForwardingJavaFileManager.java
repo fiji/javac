@@ -26,9 +26,9 @@
 package javax.tools;
 
 import java.io.IOException;
-import java.net.URI;
 import java.util.Iterator;
 import java.util.Set;
+
 import javax.tools.JavaFileObject.Kind;
 
 /**

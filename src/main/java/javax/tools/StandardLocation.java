@@ -25,11 +25,10 @@
 
 package javax.tools;
 
-import javax.tools.JavaFileManager.Location;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
-import java.io.File;
-import java.util.*;
-import java.util.concurrent.*;
+import javax.tools.JavaFileManager.Location;
 
 /**
  * Standard locations of file objects.

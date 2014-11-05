@@ -25,13 +25,15 @@
 
 package com.sun.tools.javac.comp;
 
-import java.util.AbstractQueue;
 import com.sun.tools.javac.util.Context;
+
+import java.util.AbstractQueue;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
+
 import javax.tools.JavaFileObject;
 
 /** A queue of all as yet unattributed classes.

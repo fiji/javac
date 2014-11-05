@@ -26,8 +26,12 @@
 package javax.annotation.processing;
 
 import java.util.Set;
-import javax.lang.model.element.*;
+
 import javax.lang.model.SourceVersion;
+import javax.lang.model.element.AnnotationMirror;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.TypeElement;
 
 /**
  * The interface for an annotation processor.

@@ -25,18 +25,19 @@
 
 package javax.lang.model.util;
 
-import java.lang.Iterable;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
+import java.util.EnumSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.EnumSet;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.NoSuchElementException;
 
-import javax.lang.model.element.*;
-import javax.lang.model.type.*;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.PackageElement;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.element.VariableElement;
 
 
 /**

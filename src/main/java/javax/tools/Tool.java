@@ -25,9 +25,10 @@
 
 package javax.tools;
 
-import java.util.Set;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Set;
+
 import javax.lang.model.SourceVersion;
 
 /**

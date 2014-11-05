@@ -25,12 +25,13 @@
 
 package com.sun.tools.javac.main;
 
+import com.sun.tools.javac.util.ListBuffer;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.io.FileReader;
-import java.io.BufferedReader;
 import java.io.StreamTokenizer;
-import com.sun.tools.javac.util.ListBuffer;
 
 /**
  * Various utility methods for processing Java tool command line arguments.

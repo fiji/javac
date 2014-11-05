@@ -26,7 +26,7 @@
 package com.sun.tools.javac;
 
 import java.io.PrintWriter;
-import java.lang.reflect.*;
+import java.lang.reflect.Method;
 
 
 /**

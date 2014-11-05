@@ -25,7 +25,8 @@
 
 package com.sun.source.util;
 
-import com.sun.source.tree.*;
+import com.sun.source.tree.CompilationUnitTree;
+import com.sun.source.tree.Tree;
 
 /**
  * Provides methods to obtain the position of a Tree within a CompilationUnit.

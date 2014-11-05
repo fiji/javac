@@ -25,14 +25,16 @@
 
 package javax.tools;
 
+import static java.util.logging.Level.FINE;
+import static java.util.logging.Level.WARNING;
+
 import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.net.MalformedURLException;
 import java.util.Locale;
-import java.util.logging.Logger;
 import java.util.logging.Level;
-import static java.util.logging.Level.*;
+import java.util.logging.Logger;
 
 /**
  * Provides methods for locating tool providers, for example,

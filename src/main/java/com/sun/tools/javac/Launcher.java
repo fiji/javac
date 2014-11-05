@@ -27,6 +27,7 @@ package com.sun.tools.javac;
 
 import java.io.File;
 import java.util.prefs.Preferences;
+
 import javax.swing.JFileChooser;
 import javax.tools.JavaCompiler;
 import javax.tools.ToolProvider;

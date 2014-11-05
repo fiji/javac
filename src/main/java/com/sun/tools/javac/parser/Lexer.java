@@ -25,7 +25,7 @@
 
 package com.sun.tools.javac.parser;
 
-import com.sun.tools.javac.util.*;
+import com.sun.tools.javac.util.Name;
 import com.sun.tools.javac.util.Position.LineMap;
 
 /**

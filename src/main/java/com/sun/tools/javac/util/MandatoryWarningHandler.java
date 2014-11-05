@@ -25,11 +25,12 @@
 
 package com.sun.tools.javac.util;
 
+import com.sun.tools.javac.util.JCDiagnostic.DiagnosticPosition;
+
 import java.util.HashSet;
 import java.util.Set;
-import javax.tools.JavaFileObject;
 
-import com.sun.tools.javac.util.JCDiagnostic.DiagnosticPosition;
+import javax.tools.JavaFileObject;
 
 
 /**

@@ -26,7 +26,6 @@
 package javax.annotation.processing;
 
 import java.io.IOException;
-import javax.annotation.processing.Filer;
 
 /**
  * Indicates a {@link Filer} detected an attempt to open a file that

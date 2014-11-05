@@ -25,11 +25,20 @@
 
 package com.sun.tools.javac.code;
 
-import com.sun.tools.javac.util.*;
+import static javax.lang.model.SourceVersion.RELEASE_2;
+import static javax.lang.model.SourceVersion.RELEASE_3;
+import static javax.lang.model.SourceVersion.RELEASE_4;
+import static javax.lang.model.SourceVersion.RELEASE_5;
+import static javax.lang.model.SourceVersion.RELEASE_6;
+
 import com.sun.tools.javac.jvm.Target;
+import com.sun.tools.javac.util.Context;
+import com.sun.tools.javac.util.Options;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.lang.model.SourceVersion;
-import static javax.lang.model.SourceVersion.*;
-import java.util.*;
 
 /** The source language version accepted.
  *

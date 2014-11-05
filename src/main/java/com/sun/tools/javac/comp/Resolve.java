@@ -25,19 +25,74 @@
 
 package com.sun.tools.javac.comp;
 
-import com.sun.tools.javac.util.*;
+import static com.sun.tools.javac.code.Flags.ABSTRACT;
+import static com.sun.tools.javac.code.Flags.ANNOTATION;
+import static com.sun.tools.javac.code.Flags.ANONCONSTR;
+import static com.sun.tools.javac.code.Flags.AccessFlags;
+import static com.sun.tools.javac.code.Flags.BLOCK;
+import static com.sun.tools.javac.code.Flags.BRIDGE;
+import static com.sun.tools.javac.code.Flags.COMPOUND;
+import static com.sun.tools.javac.code.Flags.DEPRECATED;
+import static com.sun.tools.javac.code.Flags.ENUM;
+import static com.sun.tools.javac.code.Flags.INTERFACE;
+import static com.sun.tools.javac.code.Flags.PRIVATE;
+import static com.sun.tools.javac.code.Flags.PROTECTED;
+import static com.sun.tools.javac.code.Flags.PUBLIC;
+import static com.sun.tools.javac.code.Flags.STATIC;
+import static com.sun.tools.javac.code.Flags.SYNTHETIC;
+import static com.sun.tools.javac.code.Flags.VARARGS;
+import static com.sun.tools.javac.code.Kinds.ABSENT_MTH;
+import static com.sun.tools.javac.code.Kinds.ABSENT_TYP;
+import static com.sun.tools.javac.code.Kinds.ABSENT_VAR;
+import static com.sun.tools.javac.code.Kinds.AMBIGUOUS;
+import static com.sun.tools.javac.code.Kinds.ERR;
+import static com.sun.tools.javac.code.Kinds.ERRONEOUS;
+import static com.sun.tools.javac.code.Kinds.HIDDEN;
+import static com.sun.tools.javac.code.Kinds.MTH;
+import static com.sun.tools.javac.code.Kinds.PCK;
+import static com.sun.tools.javac.code.Kinds.STATICERR;
+import static com.sun.tools.javac.code.Kinds.TYP;
+import static com.sun.tools.javac.code.Kinds.VAL;
+import static com.sun.tools.javac.code.Kinds.VAR;
+import static com.sun.tools.javac.code.Kinds.WRONG_MTH;
+import static com.sun.tools.javac.code.Kinds.WRONG_MTHS;
+import static com.sun.tools.javac.code.TypeTags.ARRAY;
+import static com.sun.tools.javac.code.TypeTags.CLASS;
+import static com.sun.tools.javac.code.TypeTags.ERROR;
+import static com.sun.tools.javac.code.TypeTags.FORALL;
+import static com.sun.tools.javac.code.TypeTags.PACKAGE;
+import static com.sun.tools.javac.code.TypeTags.TYPEVAR;
+
+import com.sun.tools.javac.code.Scope;
+import com.sun.tools.javac.code.Source;
+import com.sun.tools.javac.code.Symbol;
+import com.sun.tools.javac.code.Symbol.ClassSymbol;
+import com.sun.tools.javac.code.Symbol.CompletionFailure;
+import com.sun.tools.javac.code.Symbol.MethodSymbol;
+import com.sun.tools.javac.code.Symbol.PackageSymbol;
+import com.sun.tools.javac.code.Symbol.TypeSymbol;
+import com.sun.tools.javac.code.Symbol.VarSymbol;
+import com.sun.tools.javac.code.Symtab;
+import com.sun.tools.javac.code.Type;
+import com.sun.tools.javac.code.Type.ErrorType;
+import com.sun.tools.javac.code.Type.ForAll;
+import com.sun.tools.javac.code.Type.MethodType;
+import com.sun.tools.javac.code.Type.TypeVar;
+import com.sun.tools.javac.code.Types;
+import com.sun.tools.javac.jvm.ClassReader;
+import com.sun.tools.javac.tree.JCTree;
+import com.sun.tools.javac.tree.JCTree.JCClassDecl;
+import com.sun.tools.javac.tree.TreeInfo;
+import com.sun.tools.javac.util.Context;
+import com.sun.tools.javac.util.FatalError;
+import com.sun.tools.javac.util.JCDiagnostic;
 import com.sun.tools.javac.util.JCDiagnostic.DiagnosticPosition;
-import com.sun.tools.javac.code.*;
-import com.sun.tools.javac.jvm.*;
-import com.sun.tools.javac.tree.*;
+import com.sun.tools.javac.util.List;
+import com.sun.tools.javac.util.Log;
+import com.sun.tools.javac.util.Name;
+import com.sun.tools.javac.util.Options;
+import com.sun.tools.javac.util.Warner;
 
-import com.sun.tools.javac.code.Type.*;
-import com.sun.tools.javac.code.Symbol.*;
-import com.sun.tools.javac.tree.JCTree.*;
-
-import static com.sun.tools.javac.code.Flags.*;
-import static com.sun.tools.javac.code.Kinds.*;
-import static com.sun.tools.javac.code.TypeTags.*;
 import javax.lang.model.element.ElementVisitor;
 
 /** Helper class for name resolution, used mostly by the attribution phase.

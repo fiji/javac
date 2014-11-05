@@ -25,11 +25,13 @@
 
 package com.sun.tools.javac.jvm;
 
-import java.util.*;
-
 import com.sun.tools.javac.code.Flags;
 import com.sun.tools.javac.code.Symbol;
-import com.sun.tools.javac.util.*;
+import com.sun.tools.javac.util.Context;
+import com.sun.tools.javac.util.Options;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /** The classfile version target.
  *

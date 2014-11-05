@@ -25,15 +25,43 @@
 
 package com.sun.tools.javac.jvm;
 
-import com.sun.tools.javac.code.*;
-import com.sun.tools.javac.code.Symbol.*;
-import com.sun.tools.javac.util.*;
-import com.sun.tools.javac.util.JCDiagnostic.DiagnosticPosition;
-
-import static com.sun.tools.javac.code.TypeTags.*;
+import static com.sun.tools.javac.code.TypeTags.ARRAY;
+import static com.sun.tools.javac.code.TypeTags.BOOLEAN;
+import static com.sun.tools.javac.code.TypeTags.BOT;
+import static com.sun.tools.javac.code.TypeTags.BYTE;
+import static com.sun.tools.javac.code.TypeTags.CHAR;
+import static com.sun.tools.javac.code.TypeTags.CLASS;
+import static com.sun.tools.javac.code.TypeTags.DOUBLE;
+import static com.sun.tools.javac.code.TypeTags.FLOAT;
+import static com.sun.tools.javac.code.TypeTags.INT;
+import static com.sun.tools.javac.code.TypeTags.LONG;
+import static com.sun.tools.javac.code.TypeTags.METHOD;
+import static com.sun.tools.javac.code.TypeTags.SHORT;
+import static com.sun.tools.javac.code.TypeTags.TYPEVAR;
+import static com.sun.tools.javac.code.TypeTags.VOID;
 import static com.sun.tools.javac.jvm.ByteCodes.*;
-import static com.sun.tools.javac.jvm.UninitializedType.*;
-import static com.sun.tools.javac.jvm.ClassWriter.StackMapTableFrame;
+import static com.sun.tools.javac.jvm.UninitializedType.UNINITIALIZED_OBJECT;
+import static com.sun.tools.javac.jvm.UninitializedType.UNINITIALIZED_THIS;
+import static com.sun.tools.javac.jvm.UninitializedType.uninitializedObject;
+
+import com.sun.tools.javac.code.Flags;
+import com.sun.tools.javac.code.Symbol;
+import com.sun.tools.javac.code.Symbol.ClassSymbol;
+import com.sun.tools.javac.code.Symbol.MethodSymbol;
+import com.sun.tools.javac.code.Symbol.VarSymbol;
+import com.sun.tools.javac.code.Symtab;
+import com.sun.tools.javac.code.Type;
+import com.sun.tools.javac.code.Type.MethodType;
+import com.sun.tools.javac.code.TypeTags;
+import com.sun.tools.javac.code.Types;
+import com.sun.tools.javac.jvm.ClassWriter.StackMapTableFrame;
+import com.sun.tools.javac.util.Bits;
+import com.sun.tools.javac.util.JCDiagnostic.DiagnosticPosition;
+import com.sun.tools.javac.util.List;
+import com.sun.tools.javac.util.ListBuffer;
+import com.sun.tools.javac.util.Log;
+import com.sun.tools.javac.util.Name;
+import com.sun.tools.javac.util.Position;
 
 /** An internal structure that corresponds to the code attribute of
  *  methods in a classfile. The class also provides some utility operations to

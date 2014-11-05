@@ -26,8 +26,6 @@
 package javax.lang.model.element;
 
 
-import java.util.List;
-import javax.lang.model.type.*;
 
 /**
  * Represents a value of an annotation type element.

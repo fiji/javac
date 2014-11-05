@@ -25,8 +25,8 @@
 
 package com.sun.tools.javac.util;
 
-import com.sun.tools.javac.Main;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Support for an abstract context, modelled loosely after ThreadLocal

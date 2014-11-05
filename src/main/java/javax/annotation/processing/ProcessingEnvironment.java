@@ -25,13 +25,12 @@
 
 package javax.annotation.processing;
 
-import java.util.Map;
-import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+
 import javax.lang.model.SourceVersion;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
-import java.io.File;
 
 /**
  * An annotation processing tool framework will {@linkplain

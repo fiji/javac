@@ -25,14 +25,14 @@
 
 package com.sun.tools.javac.model;
 
-import com.sun.tools.javac.util.*;
-import java.util.AbstractList;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
+import static com.sun.tools.javac.code.Flags.SYNTHETIC;
+
 import com.sun.tools.javac.code.Scope;
 import com.sun.tools.javac.code.Symbol;
 
-import static com.sun.tools.javac.code.Flags.*;
+import java.util.AbstractList;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Utility to construct a view of a symbol's members,

@@ -25,10 +25,13 @@
 
 package javax.annotation.processing;
 
-import javax.tools.JavaFileManager;
-import javax.tools.*;
-import javax.lang.model.element.Element;
 import java.io.IOException;
+
+import javax.lang.model.element.Element;
+import javax.tools.FileObject;
+import javax.tools.JavaFileManager;
+import javax.tools.JavaFileObject;
+import javax.tools.StandardLocation;
 
 /**
  * This interface supports the creation of new files by an annotation

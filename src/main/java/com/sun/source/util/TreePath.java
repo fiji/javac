@@ -25,7 +25,9 @@
 
 package com.sun.source.util;
 
-import com.sun.source.tree.*;
+import com.sun.source.tree.CompilationUnitTree;
+import com.sun.source.tree.Tree;
+
 import java.util.Iterator;
 
 /**

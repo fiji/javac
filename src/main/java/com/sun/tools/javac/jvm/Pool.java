@@ -25,11 +25,12 @@
 
 package com.sun.tools.javac.jvm;
 
-import java.util.*;
+import com.sun.tools.javac.code.Symbol.DelegatedSymbol;
+import com.sun.tools.javac.code.Symbol.MethodSymbol;
+import com.sun.tools.javac.code.Symbol.VarSymbol;
 
-import com.sun.tools.javac.util.*;
-import com.sun.tools.javac.code.Symbol.*;
-import com.sun.tools.javac.code.Type;
+import java.util.HashMap;
+import java.util.Map;
 
 /** An internal structure that corresponds to the constant pool of a classfile.
  *

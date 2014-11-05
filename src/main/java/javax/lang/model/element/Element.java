@@ -32,9 +32,12 @@ import java.lang.annotation.IncompleteAnnotationException;
 import java.util.List;
 import java.util.Set;
 
-import javax.lang.model.element.Modifier;
-import javax.lang.model.type.*;
-import javax.lang.model.util.*;
+import javax.lang.model.type.MirroredTypeException;
+import javax.lang.model.type.MirroredTypesException;
+import javax.lang.model.type.TypeMirror;
+import javax.lang.model.util.ElementFilter;
+import javax.lang.model.util.Elements;
+import javax.lang.model.util.Types;
 
 
 /**

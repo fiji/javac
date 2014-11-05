@@ -30,7 +30,8 @@ import java.io.Flushable;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Set;
-import static javax.tools.JavaFileObject.Kind;
+
+import javax.tools.JavaFileObject.Kind;
 
 /**
  * File manager for tools operating on Java&trade; programming language

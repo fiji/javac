@@ -25,7 +25,8 @@
 
 package com.sun.tools.javac.jvm;
 
-import com.sun.tools.javac.code.*;
+import com.sun.tools.javac.code.Type;
+import com.sun.tools.javac.code.TypeTags;
 
 
 /** These pseudo-types appear in the generated verifier tables to

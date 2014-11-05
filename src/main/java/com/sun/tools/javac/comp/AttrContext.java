@@ -25,8 +25,11 @@
 
 package com.sun.tools.javac.comp;
 
-import com.sun.tools.javac.util.*;
-import com.sun.tools.javac.code.*;
+import com.sun.tools.javac.code.Lint;
+import com.sun.tools.javac.code.Scope;
+import com.sun.tools.javac.code.Symbol;
+import com.sun.tools.javac.code.Type;
+import com.sun.tools.javac.util.List;
 
 /** Contains information specific to the attribute and enter
  *  passes, to be used in place of the generic field in environments.

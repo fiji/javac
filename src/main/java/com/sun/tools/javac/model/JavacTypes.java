@@ -25,14 +25,32 @@
 
 package com.sun.tools.javac.model;
 
+import com.sun.tools.javac.code.BoundKind;
+import com.sun.tools.javac.code.Symbol;
+import com.sun.tools.javac.code.Symbol.ClassSymbol;
+import com.sun.tools.javac.code.Symtab;
+import com.sun.tools.javac.code.Type;
+import com.sun.tools.javac.code.TypeTags;
+import com.sun.tools.javac.code.Types;
+import com.sun.tools.javac.util.Context;
+import com.sun.tools.javac.util.ListBuffer;
+
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
-import java.util.EnumSet;
-import javax.lang.model.element.*;
-import javax.lang.model.type.*;
-import com.sun.tools.javac.code.*;
-import com.sun.tools.javac.code.Symbol.*;
-import com.sun.tools.javac.util.*;
+
+import javax.lang.model.element.Element;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.ArrayType;
+import javax.lang.model.type.DeclaredType;
+import javax.lang.model.type.ExecutableType;
+import javax.lang.model.type.NoType;
+import javax.lang.model.type.NullType;
+import javax.lang.model.type.PrimitiveType;
+import javax.lang.model.type.ReferenceType;
+import javax.lang.model.type.TypeKind;
+import javax.lang.model.type.TypeMirror;
+import javax.lang.model.type.WildcardType;
 
 /**
  * Utility methods for operating on types.

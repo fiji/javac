@@ -25,11 +25,15 @@
 
 package com.sun.tools.javac.parser;
 
-import java.io.*;
-import java.nio.*;
+import static com.sun.tools.javac.util.LayoutCharacters.CR;
+import static com.sun.tools.javac.util.LayoutCharacters.FF;
+import static com.sun.tools.javac.util.LayoutCharacters.LF;
+import static com.sun.tools.javac.util.LayoutCharacters.TabInc;
 
-import com.sun.tools.javac.util.*;
-import static com.sun.tools.javac.util.LayoutCharacters.*;
+import com.sun.tools.javac.util.Context;
+import com.sun.tools.javac.util.Position;
+
+import java.nio.CharBuffer;
 
 /** An extension to the base lexical analyzer that captures
  *  and processes the contents of doc comments.  It does so by

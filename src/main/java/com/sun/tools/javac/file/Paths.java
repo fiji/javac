@@ -25,20 +25,18 @@
 
 package com.sun.tools.javac.file;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.StringTokenizer;
-import java.util.zip.ZipFile;
-import javax.tools.JavaFileManager.Location;
+import static com.sun.tools.javac.main.OptionName.BOOTCLASSPATH;
+import static com.sun.tools.javac.main.OptionName.CLASSPATH;
+import static com.sun.tools.javac.main.OptionName.ENDORSEDDIRS;
+import static com.sun.tools.javac.main.OptionName.EXTDIRS;
+import static com.sun.tools.javac.main.OptionName.PROCESSORPATH;
+import static com.sun.tools.javac.main.OptionName.SOURCEPATH;
+import static com.sun.tools.javac.main.OptionName.XBOOTCLASSPATH_APPEND;
+import static com.sun.tools.javac.main.OptionName.XBOOTCLASSPATH_PREPEND;
+import static javax.tools.StandardLocation.ANNOTATION_PROCESSOR_PATH;
+import static javax.tools.StandardLocation.CLASS_PATH;
+import static javax.tools.StandardLocation.PLATFORM_CLASS_PATH;
+import static javax.tools.StandardLocation.SOURCE_PATH;
 
 import com.sun.tools.javac.code.Lint;
 import com.sun.tools.javac.util.Context;
@@ -46,8 +44,21 @@ import com.sun.tools.javac.util.ListBuffer;
 import com.sun.tools.javac.util.Log;
 import com.sun.tools.javac.util.Options;
 
-import static javax.tools.StandardLocation.*;
-import static com.sun.tools.javac.main.OptionName.*;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.StringTokenizer;
+import java.util.zip.ZipFile;
+
+import javax.tools.JavaFileManager.Location;
 
 /** This class converts command line arguments, environment variables
  *  and system properties (in File.pathSeparator-separated String form)

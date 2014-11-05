@@ -25,9 +25,15 @@
 
 package com.sun.tools.javac.util;
 
-import com.sun.tools.javac.code.Type;
+import static com.sun.tools.javac.code.TypeTags.BOOLEAN;
+import static com.sun.tools.javac.code.TypeTags.BYTE;
+import static com.sun.tools.javac.code.TypeTags.CHAR;
+import static com.sun.tools.javac.code.TypeTags.DOUBLE;
+import static com.sun.tools.javac.code.TypeTags.FLOAT;
+import static com.sun.tools.javac.code.TypeTags.LONG;
+import static com.sun.tools.javac.code.TypeTags.SHORT;
 
-import static com.sun.tools.javac.code.TypeTags.*;
+import com.sun.tools.javac.code.Type;
 
 /**
  * Utilities for operating on constant values.

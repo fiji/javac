@@ -25,7 +25,6 @@
 
 package javax.annotation.processing;
 
-import java.util.Arrays;
 
 /**
  * Utility class for assembling {@link Completion} objects.

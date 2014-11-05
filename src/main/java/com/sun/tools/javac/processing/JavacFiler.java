@@ -25,34 +25,41 @@
 
 package com.sun.tools.javac.processing;
 
-import com.sun.tools.javac.util.*;
-import javax.annotation.processing.*;
-import javax.lang.model.SourceVersion;
-import javax.lang.model.element.NestingKind;
-import javax.lang.model.element.Modifier;
-import javax.lang.model.element.Element;
-import java.util.*;
+import static java.util.Collections.synchronizedMap;
+import static java.util.Collections.synchronizedSet;
+import static javax.tools.StandardLocation.CLASS_OUTPUT;
+import static javax.tools.StandardLocation.SOURCE_OUTPUT;
+
+import com.sun.tools.javac.util.Context;
+import com.sun.tools.javac.util.Log;
+import com.sun.tools.javac.util.Options;
 
 import java.io.Closeable;
-import java.io.File;
+import java.io.FilterOutputStream;
+import java.io.FilterWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.FilterOutputStream;
+import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.Writer;
-import java.io.FilterWriter;
-import java.io.PrintWriter;
-import java.io.IOException;
-import java.net.URI;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
+
+import javax.annotation.processing.Filer;
+import javax.annotation.processing.FilerException;
+import javax.lang.model.SourceVersion;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.Modifier;
+import javax.lang.model.element.NestingKind;
 import javax.tools.FileObject;
-
-import javax.tools.*;
-import static java.util.Collections.*;
-
+import javax.tools.ForwardingFileObject;
+import javax.tools.JavaFileManager;
 import javax.tools.JavaFileManager.Location;
-import static javax.tools.StandardLocation.SOURCE_OUTPUT;
-import static javax.tools.StandardLocation.CLASS_OUTPUT;
+import javax.tools.JavaFileObject;
+import javax.tools.StandardLocation;
 
 /**
  * The FilerImplementation class must maintain a number of

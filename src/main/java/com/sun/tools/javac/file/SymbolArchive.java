@@ -25,15 +25,16 @@
 
 package com.sun.tools.javac.file;
 
+import com.sun.tools.javac.file.RelativePath.RelativeDirectory;
+import com.sun.tools.javac.file.RelativePath.RelativeFile;
+import com.sun.tools.javac.util.List;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
-import javax.tools.JavaFileObject;
 
-import com.sun.tools.javac.file.RelativePath.RelativeDirectory;
-import com.sun.tools.javac.file.RelativePath.RelativeFile;
-import com.sun.tools.javac.util.List;
+import javax.tools.JavaFileObject;
 
 /**
  * <p><b>This is NOT part of any supported API.

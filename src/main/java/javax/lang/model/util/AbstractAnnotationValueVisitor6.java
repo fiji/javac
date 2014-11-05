@@ -26,13 +26,13 @@
 package javax.lang.model.util;
 
 
-import java.util.List;
-import javax.lang.model.element.*;
+import static javax.lang.model.SourceVersion.RELEASE_6;
 
-import javax.lang.model.type.TypeMirror;
-import static javax.lang.model.SourceVersion.*;
-import javax.lang.model.SourceVersion;
 import javax.annotation.processing.SupportedSourceVersion;
+import javax.lang.model.SourceVersion;
+import javax.lang.model.element.AnnotationValue;
+import javax.lang.model.element.AnnotationValueVisitor;
+import javax.lang.model.element.UnknownAnnotationValueException;
 
 /**
  * A skeletal visitor for annotation values with default behavior

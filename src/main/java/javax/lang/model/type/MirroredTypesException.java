@@ -26,10 +26,8 @@
 package javax.lang.model.type;
 
 
-import java.lang.annotation.Annotation;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Collections;
+import java.util.List;
 
 import javax.lang.model.element.Element;
 

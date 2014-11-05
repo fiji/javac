@@ -25,13 +25,19 @@
 
 package javax.tools;
 
-import java.io.*;
+import java.io.CharArrayReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Reader;
+import java.io.StringReader;
+import java.io.Writer;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.nio.CharBuffer;
+
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.NestingKind;
-import javax.tools.JavaFileObject.Kind;
 
 /**
  * Provides simple implementations for most methods in JavaFileObject.

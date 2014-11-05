@@ -25,14 +25,13 @@
 
 package com.sun.tools.javac.parser;
 
-import java.util.Map;
-import java.util.HashMap;
 import com.sun.tools.javac.tree.JCTree;
+import com.sun.tools.javac.tree.JCTree.JCCompilationUnit;
+import com.sun.tools.javac.tree.JCTree.JCExpression;
 import com.sun.tools.javac.tree.TreeInfo;
-import com.sun.tools.javac.util.Position;
-import com.sun.tools.javac.util.List;
 
-import static com.sun.tools.javac.tree.JCTree.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This class is similar to Parser except that it stores ending

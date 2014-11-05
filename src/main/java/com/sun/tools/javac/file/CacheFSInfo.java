@@ -25,11 +25,11 @@
 
 package com.sun.tools.javac.file;
 
+import com.sun.tools.javac.util.Context;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-
-import com.sun.tools.javac.util.Context;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 

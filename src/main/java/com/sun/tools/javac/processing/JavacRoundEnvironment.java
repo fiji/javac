@@ -26,15 +26,19 @@
 package com.sun.tools.javac.processing;
 
 import java.lang.annotation.Annotation;
-import com.sun.tools.javac.util.*;
-import com.sun.tools.javac.comp.*;
-import com.sun.tools.javac.tree.JCTree.*;
-import javax.annotation.processing.*;
-import javax.lang.model.element.*;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+import javax.annotation.processing.ProcessingEnvironment;
+import javax.annotation.processing.RoundEnvironment;
+import javax.lang.model.element.AnnotationMirror;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.TypeElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeMirror;
-import javax.lang.model.util.*;
-import java.util.*;
+import javax.lang.model.util.ElementScanner6;
 
 /**
  * Object providing state about a prior round of annotation processing.

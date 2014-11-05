@@ -25,11 +25,11 @@
 
 package com.sun.tools.javac.parser;
 
+import static com.sun.tools.javac.parser.Token.IDENTIFIER;
+
 import com.sun.tools.javac.util.Context;
 import com.sun.tools.javac.util.Log;
 import com.sun.tools.javac.util.Name;
-
-import static com.sun.tools.javac.parser.Token.*;
 
 /**
  * Map from Name to Token and Token to String.

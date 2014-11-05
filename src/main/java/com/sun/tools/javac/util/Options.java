@@ -26,7 +26,9 @@
 package com.sun.tools.javac.util;
 
 import com.sun.tools.javac.main.OptionName;
-import java.util.*;
+
+import java.util.LinkedHashMap;
+import java.util.Set;
 
 /** A table of all command-line options.
  *  If an option has an argument, the option name is mapped to the argument.

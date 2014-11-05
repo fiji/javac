@@ -25,15 +25,17 @@
 
 package com.sun.tools.javac.code;
 
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.Map;
-import com.sun.tools.javac.code.Symbol.*;
+import static com.sun.tools.javac.code.Flags.DEPRECATED;
+
+import com.sun.tools.javac.code.Symbol.MethodSymbol;
 import com.sun.tools.javac.util.Context;
 import com.sun.tools.javac.util.List;
 import com.sun.tools.javac.util.Options;
 import com.sun.tools.javac.util.Pair;
-import static com.sun.tools.javac.code.Flags.*;
+
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**

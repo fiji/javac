@@ -26,7 +26,6 @@
 package javax.lang.model.type;
 
 
-import java.lang.annotation.Annotation;
 import javax.lang.model.element.Element;
 
 

@@ -25,28 +25,65 @@
 
 package com.sun.tools.javac.code;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Set;
-import java.util.concurrent.Callable;
-import javax.lang.model.element.*;
-import javax.lang.model.type.ReferenceType;
-import javax.lang.model.type.TypeMirror;
-import javax.tools.JavaFileObject;
+import static com.sun.tools.javac.code.Flags.ABSTRACT;
+import static com.sun.tools.javac.code.Flags.ANNOTATION;
+import static com.sun.tools.javac.code.Flags.BLOCK;
+import static com.sun.tools.javac.code.Flags.COMPOUND;
+import static com.sun.tools.javac.code.Flags.ENUM;
+import static com.sun.tools.javac.code.Flags.EXISTS;
+import static com.sun.tools.javac.code.Flags.INTERFACE;
+import static com.sun.tools.javac.code.Flags.NOOUTERTHIS;
+import static com.sun.tools.javac.code.Flags.PARAMETER;
+import static com.sun.tools.javac.code.Flags.PRIVATE;
+import static com.sun.tools.javac.code.Flags.PROTECTED;
+import static com.sun.tools.javac.code.Flags.PUBLIC;
+import static com.sun.tools.javac.code.Flags.STATIC;
+import static com.sun.tools.javac.code.Flags.SYNTHETIC;
+import static com.sun.tools.javac.code.Flags.VARARGS;
+import static com.sun.tools.javac.code.Kinds.ERR;
+import static com.sun.tools.javac.code.Kinds.MTH;
+import static com.sun.tools.javac.code.Kinds.PCK;
+import static com.sun.tools.javac.code.Kinds.TYP;
+import static com.sun.tools.javac.code.Kinds.VAR;
+import static com.sun.tools.javac.code.TypeTags.CLASS;
+import static com.sun.tools.javac.code.TypeTags.FORALL;
+import static com.sun.tools.javac.code.TypeTags.TYPEVAR;
 
-import com.sun.tools.javac.util.*;
-import com.sun.tools.javac.util.Name;
-import com.sun.tools.javac.code.Type.*;
+import com.sun.tools.javac.code.Type.ClassType;
+import com.sun.tools.javac.code.Type.ErrorType;
+import com.sun.tools.javac.code.Type.ForAll;
+import com.sun.tools.javac.code.Type.MethodType;
+import com.sun.tools.javac.code.Type.PackageType;
+import com.sun.tools.javac.code.Type.TypeVar;
 import com.sun.tools.javac.comp.Attr;
 import com.sun.tools.javac.comp.AttrContext;
 import com.sun.tools.javac.comp.Env;
-import com.sun.tools.javac.jvm.*;
-import com.sun.tools.javac.model.*;
+import com.sun.tools.javac.jvm.Code;
+import com.sun.tools.javac.jvm.Pool;
+import com.sun.tools.javac.model.JavacElements;
 import com.sun.tools.javac.tree.JCTree;
+import com.sun.tools.javac.util.Constants;
+import com.sun.tools.javac.util.List;
+import com.sun.tools.javac.util.ListBuffer;
+import com.sun.tools.javac.util.Log;
+import com.sun.tools.javac.util.Name;
+import com.sun.tools.javac.util.Position;
+import com.sun.tools.javac.util.Warner;
 
-import static com.sun.tools.javac.code.Flags.*;
-import static com.sun.tools.javac.code.Kinds.*;
-import static com.sun.tools.javac.code.TypeTags.*;
+import java.util.Set;
+import java.util.concurrent.Callable;
+
+import javax.lang.model.element.Element;
+import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.ElementVisitor;
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.Modifier;
+import javax.lang.model.element.NestingKind;
+import javax.lang.model.element.PackageElement;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.element.TypeParameterElement;
+import javax.lang.model.element.VariableElement;
+import javax.tools.JavaFileObject;
 
 /** Root class for Java symbols. It contains subclasses
  *  for specific sorts of symbols, such as variables, methods and operators,

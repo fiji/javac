@@ -25,23 +25,31 @@
 
 package com.sun.tools.javac.main;
 
-import com.sun.tools.javac.util.Options;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.MissingResourceException;
-
 import com.sun.tools.javac.code.Source;
 import com.sun.tools.javac.file.CacheFSInfo;
 import com.sun.tools.javac.file.JavacFileManager;
 import com.sun.tools.javac.jvm.Target;
 import com.sun.tools.javac.main.JavacOption.Option;
 import com.sun.tools.javac.main.RecognizedOptions.OptionHelper;
-import com.sun.tools.javac.util.*;
 import com.sun.tools.javac.processing.AnnotationProcessingError;
+import com.sun.tools.javac.util.ClientCodeException;
+import com.sun.tools.javac.util.Context;
+import com.sun.tools.javac.util.FatalError;
+import com.sun.tools.javac.util.List;
+import com.sun.tools.javac.util.ListBuffer;
+import com.sun.tools.javac.util.Log;
+import com.sun.tools.javac.util.Messages;
+import com.sun.tools.javac.util.Options;
+import com.sun.tools.javac.util.PropagatedException;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.MissingResourceException;
+
+import javax.annotation.processing.Processor;
 import javax.tools.JavaFileManager;
 import javax.tools.JavaFileObject;
-import javax.annotation.processing.Processor;
 
 /** This class provides a commandline interface to the GJC compiler.
  *

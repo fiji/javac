@@ -25,17 +25,29 @@
 
 package com.sun.tools.javac.code;
 
+import static com.sun.tools.javac.code.TypeTags.BOOLEAN;
+import static com.sun.tools.javac.code.TypeTags.BYTE;
+import static com.sun.tools.javac.code.TypeTags.CHAR;
+import static com.sun.tools.javac.code.TypeTags.DOUBLE;
+import static com.sun.tools.javac.code.TypeTags.FLOAT;
+import static com.sun.tools.javac.code.TypeTags.INT;
+import static com.sun.tools.javac.code.TypeTags.LONG;
+import static com.sun.tools.javac.code.TypeTags.SHORT;
+
+import com.sun.tools.javac.code.Symbol.MethodSymbol;
+import com.sun.tools.javac.code.Symbol.VarSymbol;
+import com.sun.tools.javac.util.Constants;
+import com.sun.tools.javac.util.List;
+import com.sun.tools.javac.util.Name;
+import com.sun.tools.javac.util.Pair;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
+
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.AnnotationValueVisitor;
-import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.type.DeclaredType;
-import com.sun.tools.javac.code.Symbol.*;
-import com.sun.tools.javac.util.*;
-
-import static com.sun.tools.javac.code.TypeTags.*;
 
 /** An annotation value.
  *

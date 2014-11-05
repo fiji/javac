@@ -25,12 +25,11 @@
 
 package com.sun.tools.javac.util;
 
-import javax.tools.JavaFileObject;
-
 import com.sun.tools.javac.file.BaseFileObject;
-import com.sun.tools.javac.file.JavacFileManager;
 import com.sun.tools.javac.util.JCDiagnostic.DiagnosticSource;
 import com.sun.tools.javac.util.JCDiagnostic.DiagnosticType;
+
+import javax.tools.JavaFileObject;
 
 /**
  * A formatter for diagnostic messages.

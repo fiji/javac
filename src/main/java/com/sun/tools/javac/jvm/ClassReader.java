@@ -25,35 +25,87 @@
 
 package com.sun.tools.javac.jvm;
 
-import java.net.URISyntaxException;
-import java.io.*;
+import static com.sun.tools.javac.code.Flags.ABSTRACT;
+import static com.sun.tools.javac.code.Flags.ACC_BRIDGE;
+import static com.sun.tools.javac.code.Flags.ACC_SUPER;
+import static com.sun.tools.javac.code.Flags.ACC_VARARGS;
+import static com.sun.tools.javac.code.Flags.ANNOTATION;
+import static com.sun.tools.javac.code.Flags.BRIDGE;
+import static com.sun.tools.javac.code.Flags.CLASS_SEEN;
+import static com.sun.tools.javac.code.Flags.DEPRECATED;
+import static com.sun.tools.javac.code.Flags.ENUM;
+import static com.sun.tools.javac.code.Flags.EXISTS;
+import static com.sun.tools.javac.code.Flags.FINAL;
+import static com.sun.tools.javac.code.Flags.INTERFACE;
+import static com.sun.tools.javac.code.Flags.PROPRIETARY;
+import static com.sun.tools.javac.code.Flags.PUBLIC;
+import static com.sun.tools.javac.code.Flags.SOURCE_SEEN;
+import static com.sun.tools.javac.code.Flags.STATIC;
+import static com.sun.tools.javac.code.Flags.SYNTHETIC;
+import static com.sun.tools.javac.code.Flags.VARARGS;
+import static com.sun.tools.javac.code.Kinds.MTH;
+import static com.sun.tools.javac.code.Kinds.PCK;
+import static com.sun.tools.javac.code.Kinds.TYP;
+import static com.sun.tools.javac.code.Kinds.VAR;
+import static com.sun.tools.javac.code.TypeTags.CLASS;
+import static javax.tools.StandardLocation.CLASS_PATH;
+import static javax.tools.StandardLocation.PLATFORM_CLASS_PATH;
+import static javax.tools.StandardLocation.SOURCE_PATH;
+
+import com.sun.tools.javac.code.Attribute;
+import com.sun.tools.javac.code.BoundKind;
+import com.sun.tools.javac.code.Scope;
+import com.sun.tools.javac.code.Source;
+import com.sun.tools.javac.code.Symbol;
+import com.sun.tools.javac.code.Symbol.ClassSymbol;
+import com.sun.tools.javac.code.Symbol.Completer;
+import com.sun.tools.javac.code.Symbol.CompletionFailure;
+import com.sun.tools.javac.code.Symbol.MethodSymbol;
+import com.sun.tools.javac.code.Symbol.PackageSymbol;
+import com.sun.tools.javac.code.Symbol.TypeSymbol;
+import com.sun.tools.javac.code.Symbol.VarSymbol;
+import com.sun.tools.javac.code.Symtab;
+import com.sun.tools.javac.code.Type;
+import com.sun.tools.javac.code.Type.ArrayType;
+import com.sun.tools.javac.code.Type.ClassType;
+import com.sun.tools.javac.code.Type.ForAll;
+import com.sun.tools.javac.code.Type.MethodType;
+import com.sun.tools.javac.code.Type.TypeVar;
+import com.sun.tools.javac.code.Type.WildcardType;
+import com.sun.tools.javac.code.Types;
+import com.sun.tools.javac.comp.Annotate;
+import com.sun.tools.javac.file.BaseFileObject;
+import com.sun.tools.javac.util.Context;
+import com.sun.tools.javac.util.Convert;
+import com.sun.tools.javac.util.List;
+import com.sun.tools.javac.util.ListBuffer;
+import com.sun.tools.javac.util.Log;
+import com.sun.tools.javac.util.Name;
+import com.sun.tools.javac.util.Options;
+import com.sun.tools.javac.util.Pair;
+
+import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.Reader;
+import java.io.Writer;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.CharBuffer;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+
 import javax.lang.model.SourceVersion;
-import javax.tools.JavaFileObject;
 import javax.tools.JavaFileManager;
-import javax.tools.StandardJavaFileManager;
-
-import com.sun.tools.javac.comp.Annotate;
-import com.sun.tools.javac.code.*;
-import com.sun.tools.javac.code.Type.*;
-import com.sun.tools.javac.code.Symbol.*;
-import com.sun.tools.javac.code.Symtab;
-import com.sun.tools.javac.file.BaseFileObject;
-import com.sun.tools.javac.util.*;
-import com.sun.tools.javac.util.List;
-
-import static com.sun.tools.javac.code.Flags.*;
-import static com.sun.tools.javac.code.Kinds.*;
-import static com.sun.tools.javac.code.TypeTags.*;
-import com.sun.tools.javac.jvm.ClassFile.NameAndType;
 import javax.tools.JavaFileManager.Location;
-import static javax.tools.StandardLocation.*;
+import javax.tools.JavaFileObject;
+import javax.tools.StandardJavaFileManager;
 
 /** This class provides operations to read a classfile into an internal
  *  representation. The internal representation is anchored in a

@@ -25,28 +25,88 @@
 
 package com.sun.tools.javac.jvm;
 
-import java.io.*;
-import java.util.*;
-import java.util.Set;
-import java.util.HashSet;
-
-import javax.tools.JavaFileManager;
-import javax.tools.FileObject;
-import javax.tools.JavaFileObject;
-
-import com.sun.tools.javac.code.*;
-import com.sun.tools.javac.code.Symbol.*;
-import com.sun.tools.javac.code.Type.*;
-import com.sun.tools.javac.file.BaseFileObject;
-import com.sun.tools.javac.util.*;
-import com.sun.tools.javac.util.List;
-
-import static com.sun.tools.javac.code.BoundKind.*;
-import static com.sun.tools.javac.code.Flags.*;
-import static com.sun.tools.javac.code.Kinds.*;
-import static com.sun.tools.javac.code.TypeTags.*;
-import static com.sun.tools.javac.jvm.UninitializedType.*;
+import static com.sun.tools.javac.code.Flags.ABSTRACT;
+import static com.sun.tools.javac.code.Flags.ACC_BRIDGE;
+import static com.sun.tools.javac.code.Flags.ACC_SUPER;
+import static com.sun.tools.javac.code.Flags.ACC_VARARGS;
+import static com.sun.tools.javac.code.Flags.ANNOTATION;
+import static com.sun.tools.javac.code.Flags.ANONCONSTR;
+import static com.sun.tools.javac.code.Flags.BRIDGE;
+import static com.sun.tools.javac.code.Flags.COMPOUND;
+import static com.sun.tools.javac.code.Flags.ClassFlags;
+import static com.sun.tools.javac.code.Flags.DEPRECATED;
+import static com.sun.tools.javac.code.Flags.ENUM;
+import static com.sun.tools.javac.code.Flags.FINAL;
+import static com.sun.tools.javac.code.Flags.HYPOTHETICAL;
+import static com.sun.tools.javac.code.Flags.INTERFACE;
+import static com.sun.tools.javac.code.Flags.PRIVATE;
+import static com.sun.tools.javac.code.Flags.PROTECTED;
+import static com.sun.tools.javac.code.Flags.PUBLIC;
+import static com.sun.tools.javac.code.Flags.STRICTFP;
+import static com.sun.tools.javac.code.Flags.SYNTHETIC;
+import static com.sun.tools.javac.code.Flags.StandardFlags;
+import static com.sun.tools.javac.code.Flags.VARARGS;
+import static com.sun.tools.javac.code.Kinds.MTH;
+import static com.sun.tools.javac.code.Kinds.PCK;
+import static com.sun.tools.javac.code.Kinds.TYP;
+import static com.sun.tools.javac.code.Kinds.VAR;
+import static com.sun.tools.javac.code.TypeTags.ARRAY;
+import static com.sun.tools.javac.code.TypeTags.BOOLEAN;
+import static com.sun.tools.javac.code.TypeTags.BOT;
+import static com.sun.tools.javac.code.TypeTags.BYTE;
+import static com.sun.tools.javac.code.TypeTags.CHAR;
+import static com.sun.tools.javac.code.TypeTags.CLASS;
+import static com.sun.tools.javac.code.TypeTags.DOUBLE;
+import static com.sun.tools.javac.code.TypeTags.FLOAT;
+import static com.sun.tools.javac.code.TypeTags.FORALL;
+import static com.sun.tools.javac.code.TypeTags.INT;
+import static com.sun.tools.javac.code.TypeTags.LONG;
+import static com.sun.tools.javac.code.TypeTags.METHOD;
+import static com.sun.tools.javac.code.TypeTags.SHORT;
+import static com.sun.tools.javac.code.TypeTags.TYPEVAR;
+import static com.sun.tools.javac.code.TypeTags.VOID;
+import static com.sun.tools.javac.code.TypeTags.WILDCARD;
+import static com.sun.tools.javac.jvm.UninitializedType.UNINITIALIZED_OBJECT;
+import static com.sun.tools.javac.jvm.UninitializedType.UNINITIALIZED_THIS;
 import static javax.tools.StandardLocation.CLASS_OUTPUT;
+
+import com.sun.tools.javac.code.Attribute;
+import com.sun.tools.javac.code.Scope;
+import com.sun.tools.javac.code.Source;
+import com.sun.tools.javac.code.Symbol;
+import com.sun.tools.javac.code.Symbol.ClassSymbol;
+import com.sun.tools.javac.code.Symbol.CompletionFailure;
+import com.sun.tools.javac.code.Symbol.MethodSymbol;
+import com.sun.tools.javac.code.Symbol.TypeSymbol;
+import com.sun.tools.javac.code.Symbol.VarSymbol;
+import com.sun.tools.javac.code.Symtab;
+import com.sun.tools.javac.code.Type;
+import com.sun.tools.javac.code.Type.ArrayType;
+import com.sun.tools.javac.code.Type.ClassType;
+import com.sun.tools.javac.code.Type.ForAll;
+import com.sun.tools.javac.code.Type.MethodType;
+import com.sun.tools.javac.code.Type.TypeVar;
+import com.sun.tools.javac.code.Type.WildcardType;
+import com.sun.tools.javac.code.TypeTags;
+import com.sun.tools.javac.code.Types;
+import com.sun.tools.javac.file.BaseFileObject;
+import com.sun.tools.javac.util.ByteBuffer;
+import com.sun.tools.javac.util.Context;
+import com.sun.tools.javac.util.List;
+import com.sun.tools.javac.util.ListBuffer;
+import com.sun.tools.javac.util.Log;
+import com.sun.tools.javac.util.Name;
+import com.sun.tools.javac.util.Options;
+import com.sun.tools.javac.util.Pair;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.tools.FileObject;
+import javax.tools.JavaFileManager;
+import javax.tools.JavaFileObject;
 
 /** This class provides operations to map an internal symbol table graph
  *  rooted in a ClassSymbol into a classfile.

@@ -25,21 +25,63 @@
 
 package com.sun.tools.javac.code;
 
-import java.util.*;
-
-import com.sun.tools.javac.util.*;
-import com.sun.tools.javac.util.List;
-
-import com.sun.tools.javac.jvm.ClassReader;
-import com.sun.tools.javac.comp.Infer;
-import com.sun.tools.javac.comp.Check;
-
-import static com.sun.tools.javac.code.Type.*;
-import static com.sun.tools.javac.code.TypeTags.*;
-import static com.sun.tools.javac.code.Symbol.*;
-import static com.sun.tools.javac.code.Flags.*;
-import static com.sun.tools.javac.code.BoundKind.*;
+import static com.sun.tools.javac.code.Flags.ABSTRACT;
+import static com.sun.tools.javac.code.Flags.ACYCLIC;
+import static com.sun.tools.javac.code.Flags.COMPOUND;
+import static com.sun.tools.javac.code.Flags.FINAL;
+import static com.sun.tools.javac.code.Flags.INTERFACE;
+import static com.sun.tools.javac.code.Flags.PUBLIC;
+import static com.sun.tools.javac.code.Flags.STATIC;
+import static com.sun.tools.javac.code.Flags.SYNTHETIC;
+import static com.sun.tools.javac.code.Type.map;
+import static com.sun.tools.javac.code.TypeTags.ARRAY;
+import static com.sun.tools.javac.code.TypeTags.BOOLEAN;
+import static com.sun.tools.javac.code.TypeTags.BOT;
+import static com.sun.tools.javac.code.TypeTags.BYTE;
+import static com.sun.tools.javac.code.TypeTags.CHAR;
+import static com.sun.tools.javac.code.TypeTags.CLASS;
+import static com.sun.tools.javac.code.TypeTags.DOUBLE;
+import static com.sun.tools.javac.code.TypeTags.ERROR;
+import static com.sun.tools.javac.code.TypeTags.FLOAT;
+import static com.sun.tools.javac.code.TypeTags.FORALL;
+import static com.sun.tools.javac.code.TypeTags.INT;
+import static com.sun.tools.javac.code.TypeTags.LONG;
+import static com.sun.tools.javac.code.TypeTags.METHOD;
+import static com.sun.tools.javac.code.TypeTags.NONE;
+import static com.sun.tools.javac.code.TypeTags.SHORT;
+import static com.sun.tools.javac.code.TypeTags.TYPEVAR;
+import static com.sun.tools.javac.code.TypeTags.UNDETVAR;
+import static com.sun.tools.javac.code.TypeTags.UNKNOWN;
+import static com.sun.tools.javac.code.TypeTags.VOID;
+import static com.sun.tools.javac.code.TypeTags.WILDCARD;
+import static com.sun.tools.javac.code.TypeTags.firstPartialTag;
+import static com.sun.tools.javac.code.TypeTags.lastBaseTag;
 import static com.sun.tools.javac.util.ListBuffer.lb;
+
+import com.sun.tools.javac.code.Symbol.ClassSymbol;
+import com.sun.tools.javac.code.Type.ArrayType;
+import com.sun.tools.javac.code.Type.CapturedType;
+import com.sun.tools.javac.code.Type.ClassType;
+import com.sun.tools.javac.code.Type.ErrorType;
+import com.sun.tools.javac.code.Type.ForAll;
+import com.sun.tools.javac.code.Type.Mapping;
+import com.sun.tools.javac.code.Type.MethodType;
+import com.sun.tools.javac.code.Type.PackageType;
+import com.sun.tools.javac.code.Type.TypeVar;
+import com.sun.tools.javac.code.Type.UndetVar;
+import com.sun.tools.javac.code.Type.WildcardType;
+import com.sun.tools.javac.comp.Check;
+import com.sun.tools.javac.jvm.ClassReader;
+import com.sun.tools.javac.util.Context;
+import com.sun.tools.javac.util.List;
+import com.sun.tools.javac.util.ListBuffer;
+import com.sun.tools.javac.util.Name;
+import com.sun.tools.javac.util.Warner;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Utility class containing various operations on types.

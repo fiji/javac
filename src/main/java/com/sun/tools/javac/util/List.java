@@ -26,11 +26,11 @@
 package com.sun.tools.javac.util;
 
 import java.lang.reflect.Array;
+import java.util.AbstractCollection;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.AbstractCollection;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
 

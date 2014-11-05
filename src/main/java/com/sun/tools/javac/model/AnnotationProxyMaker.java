@@ -25,20 +25,32 @@
 
 package com.sun.tools.javac.model;
 
-import com.sun.tools.javac.util.*;
-import java.lang.annotation.*;
+import com.sun.tools.javac.code.Attribute;
+import com.sun.tools.javac.code.Kinds;
+import com.sun.tools.javac.code.Scope;
+import com.sun.tools.javac.code.Symbol.ClassSymbol;
+import com.sun.tools.javac.code.Symbol.MethodSymbol;
+import com.sun.tools.javac.code.Type;
+import com.sun.tools.javac.code.Type.ArrayType;
+import com.sun.tools.javac.util.List;
+import com.sun.tools.javac.util.Name;
+import com.sun.tools.javac.util.Pair;
+
+import java.lang.annotation.Annotation;
+import java.lang.annotation.AnnotationTypeMismatchException;
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import sun.reflect.annotation.*;
 
-import javax.lang.model.type.TypeMirror;
 import javax.lang.model.type.MirroredTypeException;
 import javax.lang.model.type.MirroredTypesException;
-import com.sun.tools.javac.code.*;
-import com.sun.tools.javac.code.Symbol.*;
-import com.sun.tools.javac.code.Type.ArrayType;
+import javax.lang.model.type.TypeMirror;
+
+import sun.reflect.annotation.AnnotationParser;
+import sun.reflect.annotation.AnnotationType;
+import sun.reflect.annotation.EnumConstantNotPresentExceptionProxy;
+import sun.reflect.annotation.ExceptionProxy;
 
 
 /**

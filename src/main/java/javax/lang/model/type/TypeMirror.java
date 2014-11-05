@@ -25,7 +25,7 @@
 
 package javax.lang.model.type;
 
-import javax.lang.model.element.*;
+import javax.lang.model.element.Element;
 import javax.lang.model.util.Types;
 
 /**

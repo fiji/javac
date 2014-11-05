@@ -25,7 +25,7 @@
 
 package javax.lang.model.element;
 
-import javax.lang.model.util.*;
+import javax.lang.model.util.AbstractElementVisitor6;
 
 /**
  * A visitor of program elements, in the style of the visitor design

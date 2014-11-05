@@ -25,11 +25,16 @@
 
 package javax.lang.model.util;
 
-import javax.lang.model.element.*;
+import static javax.lang.model.SourceVersion.RELEASE_6;
+
 import javax.annotation.processing.SupportedSourceVersion;
-import static javax.lang.model.element.ElementKind.*;
 import javax.lang.model.SourceVersion;
-import static javax.lang.model.SourceVersion.*;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.PackageElement;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.element.TypeParameterElement;
+import javax.lang.model.element.VariableElement;
 
 
 /**

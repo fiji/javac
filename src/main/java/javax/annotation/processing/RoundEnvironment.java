@@ -25,10 +25,11 @@
 
 package javax.annotation.processing;
 
+import java.lang.annotation.Annotation;
+import java.util.Set;
+
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
-import java.util.Set;
-import java.lang.annotation.Annotation;
 
 /**
  * An annotation processing tool framework will {@linkplain

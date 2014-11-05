@@ -25,20 +25,40 @@
 
 package com.sun.tools.javac.parser;
 
-import java.io.*;
-import java.nio.*;
-import java.nio.ByteBuffer;
-import java.nio.charset.*;
-import java.nio.channels.*;
-import java.util.regex.*;
-
-import com.sun.tools.javac.file.JavacFileManager;
-import com.sun.tools.javac.util.*;
+import static com.sun.tools.javac.parser.Token.CHARLITERAL;
+import static com.sun.tools.javac.parser.Token.COMMA;
+import static com.sun.tools.javac.parser.Token.DOT;
+import static com.sun.tools.javac.parser.Token.DOUBLELITERAL;
+import static com.sun.tools.javac.parser.Token.ELLIPSIS;
+import static com.sun.tools.javac.parser.Token.EOF;
+import static com.sun.tools.javac.parser.Token.ERROR;
+import static com.sun.tools.javac.parser.Token.FLOATLITERAL;
+import static com.sun.tools.javac.parser.Token.IDENTIFIER;
+import static com.sun.tools.javac.parser.Token.INTLITERAL;
+import static com.sun.tools.javac.parser.Token.LBRACE;
+import static com.sun.tools.javac.parser.Token.LBRACKET;
+import static com.sun.tools.javac.parser.Token.LONGLITERAL;
+import static com.sun.tools.javac.parser.Token.LPAREN;
+import static com.sun.tools.javac.parser.Token.RBRACE;
+import static com.sun.tools.javac.parser.Token.RBRACKET;
+import static com.sun.tools.javac.parser.Token.RPAREN;
+import static com.sun.tools.javac.parser.Token.SEMI;
+import static com.sun.tools.javac.parser.Token.SLASH;
+import static com.sun.tools.javac.parser.Token.SLASHEQ;
+import static com.sun.tools.javac.parser.Token.STRINGLITERAL;
+import static com.sun.tools.javac.util.LayoutCharacters.CR;
+import static com.sun.tools.javac.util.LayoutCharacters.EOI;
+import static com.sun.tools.javac.util.LayoutCharacters.FF;
+import static com.sun.tools.javac.util.LayoutCharacters.LF;
 
 import com.sun.tools.javac.code.Source;
+import com.sun.tools.javac.file.JavacFileManager;
+import com.sun.tools.javac.util.Context;
+import com.sun.tools.javac.util.Log;
+import com.sun.tools.javac.util.Name;
+import com.sun.tools.javac.util.Position;
 
-import static com.sun.tools.javac.parser.Token.*;
-import static com.sun.tools.javac.util.LayoutCharacters.*;
+import java.nio.CharBuffer;
 
 /** The lexical analyzer maps an input stream consisting of
  *  ASCII characters and Unicode escapes into a token sequence.

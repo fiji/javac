@@ -25,21 +25,27 @@
 
 package com.sun.tools.javac.util;
 
-import java.io.*;
-import java.nio.CharBuffer;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import javax.tools.DiagnosticListener;
-import javax.tools.JavaFileObject;
+import static com.sun.tools.javac.util.LayoutCharacters.CR;
+import static com.sun.tools.javac.util.LayoutCharacters.LF;
+import static com.sun.tools.javac.util.LayoutCharacters.TabInc;
+
 import com.sun.tools.javac.file.BaseFileObject;
 import com.sun.tools.javac.file.JavacFileManager;
 import com.sun.tools.javac.tree.JCTree;
 import com.sun.tools.javac.util.JCDiagnostic.DiagnosticPosition;
 import com.sun.tools.javac.util.JCDiagnostic.DiagnosticType;
 import com.sun.tools.javac.util.JCDiagnostic.SimpleDiagnosticPosition;
-import static com.sun.tools.javac.util.LayoutCharacters.*;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.CharBuffer;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+import javax.tools.DiagnosticListener;
+import javax.tools.JavaFileObject;
 
 /** A class for error logs. Reports errors and warnings, and
  *  keeps track of error numbers and positions.

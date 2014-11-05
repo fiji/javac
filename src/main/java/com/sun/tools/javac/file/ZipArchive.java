@@ -25,11 +25,18 @@
 
 package com.sun.tools.javac.file;
 
+import com.sun.tools.javac.file.JavacFileManager.Archive;
+import com.sun.tools.javac.file.RelativePath.RelativeDirectory;
+import com.sun.tools.javac.file.RelativePath.RelativeFile;
+import com.sun.tools.javac.util.List;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Writer;
+import java.lang.ref.Reference;
+import java.lang.ref.SoftReference;
 import java.net.URI;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
@@ -42,13 +49,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import javax.tools.JavaFileObject;
-
-import com.sun.tools.javac.file.JavacFileManager.Archive;
-import com.sun.tools.javac.file.RelativePath.RelativeDirectory;
-import com.sun.tools.javac.file.RelativePath.RelativeFile;
-import com.sun.tools.javac.util.List;
-import java.lang.ref.Reference;
-import java.lang.ref.SoftReference;
 
 /**
  * <p><b>This is NOT part of any supported API.

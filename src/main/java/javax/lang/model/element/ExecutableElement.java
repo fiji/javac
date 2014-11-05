@@ -26,8 +26,11 @@
 package javax.lang.model.element;
 
 import java.util.List;
-import javax.lang.model.util.Types;
-import javax.lang.model.type.*;
+
+import javax.lang.model.type.ExecutableType;
+import javax.lang.model.type.NoType;
+import javax.lang.model.type.TypeKind;
+import javax.lang.model.type.TypeMirror;
 
 /**
  * Represents a method, constructor, or initializer (static or

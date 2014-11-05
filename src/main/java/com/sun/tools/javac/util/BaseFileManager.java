@@ -30,6 +30,7 @@ import com.sun.tools.javac.main.JavacOption;
 import com.sun.tools.javac.main.OptionName;
 import com.sun.tools.javac.main.RecognizedOptions;
 import com.sun.tools.javac.util.JCDiagnostic.SimpleDiagnosticPosition;
+
 import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
 import java.io.IOException;
@@ -51,6 +52,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+
 import javax.tools.JavaFileObject;
 import javax.tools.JavaFileObject.Kind;
 

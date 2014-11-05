@@ -26,6 +26,9 @@
 package com.sun.tools.javac.file;
 
 
+import com.sun.tools.javac.file.RelativePath.RelativeDirectory;
+import com.sun.tools.javac.file.RelativePath.RelativeFile;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -46,9 +49,6 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.zip.DataFormatException;
 import java.util.zip.Inflater;
 import java.util.zip.ZipException;
-
-import com.sun.tools.javac.file.RelativePath.RelativeDirectory;
-import com.sun.tools.javac.file.RelativePath.RelativeFile;
 
 /** This class implements building of index of a zip archive and access to it's context.
  *  It also uses prebuild index if available. It supports invocations where it will

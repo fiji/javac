@@ -25,7 +25,8 @@
 
 package com.sun.tools.javac.code;
 
-import com.sun.tools.javac.util.*;
+import com.sun.tools.javac.util.Name;
+
 import java.util.Iterator;
 
 /** A scope represents an area of visibility in a Java program. The

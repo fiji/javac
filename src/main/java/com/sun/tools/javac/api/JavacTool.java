@@ -25,11 +25,24 @@
 
 package com.sun.tools.javac.api;
 
+import com.sun.source.util.JavacTask;
+import com.sun.tools.javac.file.JavacFileManager;
+import com.sun.tools.javac.main.JavacOption;
+import com.sun.tools.javac.main.JavacOption.OptionKind;
+import com.sun.tools.javac.main.Main;
+import com.sun.tools.javac.main.RecognizedOptions;
+import com.sun.tools.javac.main.RecognizedOptions.GrumpyHelper;
+import com.sun.tools.javac.util.Context;
+import com.sun.tools.javac.util.Log;
+import com.sun.tools.javac.util.Options;
+import com.sun.tools.javac.util.Pair;
+
 import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
@@ -37,21 +50,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
-import javax.lang.model.SourceVersion;
-import javax.tools.*;
 
-import com.sun.source.util.JavacTask;
-import com.sun.tools.javac.file.JavacFileManager;
-import com.sun.tools.javac.main.JavacOption.OptionKind;
-import com.sun.tools.javac.main.JavacOption;
-import com.sun.tools.javac.main.Main;
-import com.sun.tools.javac.main.RecognizedOptions.GrumpyHelper;
-import com.sun.tools.javac.main.RecognizedOptions;
-import com.sun.tools.javac.util.Context;
-import com.sun.tools.javac.util.Log;
-import com.sun.tools.javac.util.Options;
-import com.sun.tools.javac.util.Pair;
-import java.nio.charset.Charset;
+import javax.lang.model.SourceVersion;
+import javax.tools.DiagnosticListener;
+import javax.tools.JavaCompiler;
+import javax.tools.JavaFileManager;
+import javax.tools.JavaFileObject;
 
 /**
  * TODO: describe com.sun.tools.javac.api.Tool

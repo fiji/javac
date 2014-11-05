@@ -25,48 +25,81 @@
 
 package com.sun.tools.javac.main;
 
-import java.io.*;
+import static com.sun.tools.javac.util.ListBuffer.lb;
+import static javax.tools.StandardLocation.CLASS_OUTPUT;
+
+import com.sun.source.util.TaskEvent;
+import com.sun.source.util.TaskListener;
+import com.sun.tools.javac.code.Flags;
+import com.sun.tools.javac.code.Kinds;
+import com.sun.tools.javac.code.Source;
+import com.sun.tools.javac.code.Symbol;
+import com.sun.tools.javac.code.Symbol.ClassSymbol;
+import com.sun.tools.javac.code.Symbol.CompletionFailure;
+import com.sun.tools.javac.code.Symbol.PackageSymbol;
+import com.sun.tools.javac.code.Symtab;
+import com.sun.tools.javac.code.Type;
+import com.sun.tools.javac.code.TypeTags;
+import com.sun.tools.javac.code.Types;
+import com.sun.tools.javac.comp.Annotate;
+import com.sun.tools.javac.comp.Attr;
+import com.sun.tools.javac.comp.AttrContext;
+import com.sun.tools.javac.comp.Check;
+import com.sun.tools.javac.comp.Enter;
+import com.sun.tools.javac.comp.Env;
+import com.sun.tools.javac.comp.Flow;
+import com.sun.tools.javac.comp.Lower;
+import com.sun.tools.javac.comp.Todo;
+import com.sun.tools.javac.comp.TransTypes;
+import com.sun.tools.javac.file.JavacFileManager;
+import com.sun.tools.javac.jvm.ClassReader;
+import com.sun.tools.javac.jvm.ClassWriter;
+import com.sun.tools.javac.jvm.Gen;
+import com.sun.tools.javac.parser.DocCommentScanner;
+import com.sun.tools.javac.parser.Parser;
+import com.sun.tools.javac.parser.Scanner;
+import com.sun.tools.javac.processing.JavacProcessingEnvironment;
+import com.sun.tools.javac.tree.JCTree;
+import com.sun.tools.javac.tree.JCTree.JCClassDecl;
+import com.sun.tools.javac.tree.JCTree.JCCompilationUnit;
+import com.sun.tools.javac.tree.JCTree.JCExpression;
+import com.sun.tools.javac.tree.JCTree.JCMethodDecl;
+import com.sun.tools.javac.tree.JCTree.JCVariableDecl;
+import com.sun.tools.javac.tree.Pretty;
+import com.sun.tools.javac.tree.TreeMaker;
+import com.sun.tools.javac.tree.TreeScanner;
+import com.sun.tools.javac.tree.TreeTranslator;
+import com.sun.tools.javac.util.Abort;
+import com.sun.tools.javac.util.Context;
+import com.sun.tools.javac.util.List;
+import com.sun.tools.javac.util.ListBuffer;
+import com.sun.tools.javac.util.Log;
+import com.sun.tools.javac.util.Name;
+import com.sun.tools.javac.util.Options;
+import com.sun.tools.javac.util.Pair;
+import com.sun.tools.javac.util.Position;
+
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.MissingResourceException;
+import java.util.Queue;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.annotation.processing.Processor;
+import javax.lang.model.SourceVersion;
+import javax.tools.DiagnosticListener;
 import javax.tools.JavaFileManager;
 import javax.tools.JavaFileObject;
-import javax.tools.DiagnosticListener;
-
-import com.sun.source.util.TaskEvent;
-import com.sun.source.util.TaskListener;
-
-import com.sun.tools.javac.file.JavacFileManager;
-import com.sun.tools.javac.util.*;
-import com.sun.tools.javac.code.*;
-import com.sun.tools.javac.tree.*;
-import com.sun.tools.javac.parser.*;
-import com.sun.tools.javac.comp.*;
-import com.sun.tools.javac.jvm.*;
-
-import com.sun.tools.javac.code.Symbol.*;
-import com.sun.tools.javac.tree.JCTree.*;
-
-import com.sun.tools.javac.processing.*;
-import javax.annotation.processing.Processor;
-
-import static javax.tools.StandardLocation.CLASS_OUTPUT;
-import static com.sun.tools.javac.util.ListBuffer.lb;
-
 // TEMP, until we have a more efficient way to save doc comment info
-import com.sun.tools.javac.parser.DocCommentScanner;
-
-import java.util.HashMap;
-import java.util.Queue;
-import javax.lang.model.SourceVersion;
 
 /** This class could be the main entry point for GJC when GJC is used as a
  *  component in a larger software system. It provides operations to

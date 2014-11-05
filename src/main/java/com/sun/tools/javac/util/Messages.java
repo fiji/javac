@@ -25,9 +25,9 @@
 
 package com.sun.tools.javac.util;
 
-import java.util.ResourceBundle;
-import java.util.MissingResourceException;
 import java.text.MessageFormat;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
 /**
  *  Support for localized messages.

@@ -25,16 +25,62 @@
 
 package com.sun.tools.javac.jvm;
 
-import com.sun.tools.javac.util.*;
-import com.sun.tools.javac.code.*;
+import static com.sun.tools.javac.jvm.ByteCodes.BYTEcode;
+import static com.sun.tools.javac.jvm.ByteCodes.CHARcode;
+import static com.sun.tools.javac.jvm.ByteCodes.DOUBLEcode;
+import static com.sun.tools.javac.jvm.ByteCodes.FLOATcode;
+import static com.sun.tools.javac.jvm.ByteCodes.INTcode;
+import static com.sun.tools.javac.jvm.ByteCodes.LONGcode;
+import static com.sun.tools.javac.jvm.ByteCodes.OBJECTcode;
+import static com.sun.tools.javac.jvm.ByteCodes.SHORTcode;
+import static com.sun.tools.javac.jvm.ByteCodes.TypeCodeCount;
+import static com.sun.tools.javac.jvm.ByteCodes.VOIDcode;
+import static com.sun.tools.javac.jvm.ByteCodes.aload_0;
+import static com.sun.tools.javac.jvm.ByteCodes.bipush;
+import static com.sun.tools.javac.jvm.ByteCodes.dconst_0;
+import static com.sun.tools.javac.jvm.ByteCodes.dontgoto;
+import static com.sun.tools.javac.jvm.ByteCodes.dup;
+import static com.sun.tools.javac.jvm.ByteCodes.dup2;
+import static com.sun.tools.javac.jvm.ByteCodes.dup_x1;
+import static com.sun.tools.javac.jvm.ByteCodes.dup_x2;
+import static com.sun.tools.javac.jvm.ByteCodes.fconst_0;
+import static com.sun.tools.javac.jvm.ByteCodes.getfield;
+import static com.sun.tools.javac.jvm.ByteCodes.getstatic;
+import static com.sun.tools.javac.jvm.ByteCodes.goto_;
+import static com.sun.tools.javac.jvm.ByteCodes.i2l;
+import static com.sun.tools.javac.jvm.ByteCodes.iadd;
+import static com.sun.tools.javac.jvm.ByteCodes.iaload;
+import static com.sun.tools.javac.jvm.ByteCodes.iastore;
+import static com.sun.tools.javac.jvm.ByteCodes.iconst_0;
+import static com.sun.tools.javac.jvm.ByteCodes.iconst_1;
+import static com.sun.tools.javac.jvm.ByteCodes.ifne;
+import static com.sun.tools.javac.jvm.ByteCodes.iinc;
+import static com.sun.tools.javac.jvm.ByteCodes.iload;
+import static com.sun.tools.javac.jvm.ByteCodes.iload_0;
+import static com.sun.tools.javac.jvm.ByteCodes.int2byte;
+import static com.sun.tools.javac.jvm.ByteCodes.istore;
+import static com.sun.tools.javac.jvm.ByteCodes.istore_0;
+import static com.sun.tools.javac.jvm.ByteCodes.isub;
+import static com.sun.tools.javac.jvm.ByteCodes.lconst_0;
+import static com.sun.tools.javac.jvm.ByteCodes.ldc1;
+import static com.sun.tools.javac.jvm.ByteCodes.ldc2;
+import static com.sun.tools.javac.jvm.ByteCodes.ldc2w;
+import static com.sun.tools.javac.jvm.ByteCodes.pop;
+import static com.sun.tools.javac.jvm.ByteCodes.pop2;
+import static com.sun.tools.javac.jvm.ByteCodes.putfield;
+import static com.sun.tools.javac.jvm.ByteCodes.putstatic;
+import static com.sun.tools.javac.jvm.ByteCodes.sipush;
+import static com.sun.tools.javac.jvm.ByteCodes.typecodeNames;
 
-import com.sun.tools.javac.code.Symbol.*;
-import com.sun.tools.javac.code.Type.*;
-import com.sun.tools.javac.jvm.Code.*;
+import com.sun.tools.javac.code.Flags;
+import com.sun.tools.javac.code.Symbol;
+import com.sun.tools.javac.code.Symbol.VarSymbol;
+import com.sun.tools.javac.code.Symtab;
+import com.sun.tools.javac.code.Type;
+import com.sun.tools.javac.code.Type.MethodType;
+import com.sun.tools.javac.code.Types;
+import com.sun.tools.javac.jvm.Code.Chain;
 import com.sun.tools.javac.tree.JCTree;
-
-import static com.sun.tools.javac.code.TypeTags.*;
-import static com.sun.tools.javac.jvm.ByteCodes.*;
 
 /** A helper class for code generation. Items are objects
  *  that stand for addressable entities in the bytecode. Each item
