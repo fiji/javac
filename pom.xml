@@ -18,9 +18,28 @@
 	<name>jars/javac.jar</name>
 	<description></description>
 
+	<scm>
+		<connection>scm:git:git://github.com/fiji/javac</connection>
+		<developerConnection>scm:git:git@github.com:fiji/javac</developerConnection>
+		<tag>HEAD</tag>
+		<url>https://github.com/fiji/javac</url>
+	</scm>
+	<ciManagement>
+		<system>Jenkins</system>
+		<url>http://jenkins.imagej.net/job/javac/</url>
+	</ciManagement>
+
 	<properties>
 		<main-class>com.sun.tools.javac.Main</main-class>
 	</properties>
+
+	<repositories>
+		<!-- NB: for project parent -->
+		<repository>
+			<id>imagej.public</id>
+			<url>http://maven.imagej.net/content/groups/public</url>
+		</repository>
+	</repositories>
 
 	<build>
 		<plugins>
@@ -36,25 +55,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
-	<ciManagement>
-		<system>Jenkins</system>
-		<url>http://jenkins.imagej.net/job/javac/</url>
-	</ciManagement>
-
-	<scm>
-		<connection>scm:git:git://github.com/fiji/javac</connection>
-		<developerConnection>scm:git:git@github.com:fiji/javac</developerConnection>
-		<tag>HEAD</tag>
-		<url>https://github.com/fiji/javac</url>
-	</scm>
-
-	<repositories>
-		<!-- NB: for project parent -->
-		<repository>
-			<id>imagej.public</id>
-			<url>http://maven.imagej.net/content/groups/public</url>
-		</repository>
-	</repositories>
 
 </project>
