@@ -18,6 +18,10 @@
 	<name>jars/javac.jar</name>
 	<description></description>
 
+	<properties>
+		<main-class>com.sun.tools.javac.Main</main-class>
+	</properties>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -25,7 +29,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>com.sun.tools.javac.Main</mainClass>
+							<mainClass>${main-class}</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
